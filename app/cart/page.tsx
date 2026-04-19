@@ -10,110 +10,162 @@ export default function CartPage() {
   const total = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <div className="relative px-6 py-16">
-      <div className="absolute -top-16 -left-16 h-56 w-56 rounded-full bg-green-200/30 blur-3xl" />
-      <div className="absolute -bottom-16 -right-16 h-56 w-56 rounded-full bg-green-300/30 blur-3xl" />
+    <div className="relative overflow-hidden px-6 py-12 md:px-10 md:py-16">
+      <div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-green-200/30 blur-3xl" />
+      <div className="absolute top-1/3 -right-20 h-72 w-72 rounded-full bg-emerald-200/30 blur-3xl" />
+      <div className="absolute -bottom-20 left-1/3 h-72 w-72 rounded-full bg-lime-200/20 blur-3xl" />
 
-      <div className="fade-up relative mx-auto max-w-7xl">
-        <div className="mb-8 text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-green-600">
+      <div className="relative mx-auto max-w-7xl">
+        <div className="mb-10 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-green-600">
             Shopping Cart
           </p>
-          <h1 className="mt-2 text-3xl font-bold text-gray-900 md:text-4xl">
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 md:text-5xl">
             Your Cart
           </h1>
-          <p className="mt-2 text-gray-600">
-            Review your selected products before moving ahead.
+          <p className="mt-3 text-sm leading-6 text-gray-600 md:text-base">
+            Review your selected products before proceeding to checkout.
           </p>
         </div>
 
         {cart.length === 0 ? (
-          <div className="glass-card mx-auto max-w-2xl rounded-3xl p-10 text-center">
-            <div className="text-5xl">🛒</div>
-            <h2 className="mt-4 text-2xl font-bold text-gray-900">
+          <div className="mx-auto max-w-2xl rounded-[32px] border border-white/60 bg-white/70 p-10 text-center shadow-[0_20px_80px_rgba(22,101,52,0.08)] backdrop-blur-2xl md:p-14">
+            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-[28px] bg-gradient-to-br from-green-100 to-emerald-100 text-5xl shadow-inner">
+              🛒
+            </div>
+
+            <h2 className="mt-6 text-2xl font-bold text-gray-900 md:text-3xl">
               Your cart is empty
             </h2>
-            <p className="mt-2 text-gray-600">
-              Add fresh products from our collection to see them here.
+
+            <p className="mt-3 text-sm leading-7 text-gray-600 md:text-base">
+              Start adding fresh and organic products to build your perfect
+              order.
             </p>
 
             <Link
               href="/products"
-              className="hover-lift mt-6 inline-block rounded-2xl bg-green-600 px-6 py-3 text-white hover:bg-green-700"
+              className="mt-8 inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-green-200 transition duration-300 hover:-translate-y-0.5 hover:from-green-700 hover:to-emerald-700"
             >
               Browse Products
             </Link>
           </div>
         ) : (
-          <div className="grid gap-8 lg:grid-cols-[1.6fr_0.9fr]">
+          <div className="grid gap-8 lg:grid-cols-[1.7fr_0.95fr]">
             <div className="space-y-5">
               {cart.map((item, index) => (
                 <div
                   key={`${item.id}-${index}`}
-                  className="glass-card flex flex-col gap-4 rounded-3xl p-4 sm:flex-row sm:items-center sm:justify-between"
+                  className="group rounded-[30px] border border-white/60 bg-white/75 p-4 shadow-[0_20px_60px_rgba(15,23,42,0.06)] backdrop-blur-2xl transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(34,197,94,0.10)] sm:p-5"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="relative h-24 w-24 overflow-hidden rounded-2xl bg-white">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                         sizes="96px"
+                  <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center gap-4 sm:gap-5">
+                      <div className="relative h-24 w-24 overflow-hidden rounded-[24px] bg-gradient-to-br from-green-50 to-white ring-1 ring-green-100 sm:h-28 sm:w-28">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          sizes="112px"
                           loading="eager"
-                        className="object-cover"
-                      />
+                          className="object-cover transition duration-300 group-hover:scale-105"
+                        />
+                      </div>
+
+                      <div className="min-w-0">
+                        <p className="inline-flex rounded-full bg-green-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-green-700">
+                          {item.category}
+                        </p>
+
+                        <h2 className="mt-3 text-lg font-bold text-gray-900 sm:text-xl">
+                          {item.name}
+                        </h2>
+
+                        <p className="mt-2 text-sm text-gray-500">
+                          Fresh quality product for your daily needs
+                        </p>
+
+                        <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
+                          <span className="rounded-full bg-gray-100 px-3 py-1 font-medium text-gray-700">
+                            ₹{item.price}
+                          </span>
+                          <span className="rounded-full bg-emerald-50 px-3 py-1 font-medium text-emerald-700">
+                            per {item.unit}
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
-                    <div>
-                      <p className="text-xs uppercase tracking-wide text-green-600">
-                        {item.category}
+                    <div className="flex flex-col items-start gap-3 sm:items-end">
+                      <p className="text-lg font-bold text-gray-900">
+                        ₹{item.price}
                       </p>
-                      <h2 className="mt-1 text-lg font-semibold text-gray-900">
-                        {item.name}
-                      </h2>
-                      <p className="mt-1 text-sm text-gray-500">
-                        ₹{item.price}/{item.unit}
-                      </p>
+
+                      <button
+                        onClick={() => removeFromCart(index)}
+                        className="rounded-2xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-100"
+                      >
+                        Remove Item
+                      </button>
                     </div>
                   </div>
-
-                  <button
-                    onClick={() => removeFromCart(index)}
-                    className="rounded-2xl border border-red-200 bg-white/70 px-4 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50"
-                  >
-                    Remove
-                  </button>
                 </div>
               ))}
             </div>
 
-            <div className="glass-card h-fit rounded-3xl p-6">
-              <h2 className="text-xl font-bold text-gray-900">
+            <div className="h-fit rounded-[32px] border border-white/60 bg-white/75 p-6 shadow-[0_20px_80px_rgba(15,23,42,0.07)] backdrop-blur-2xl md:p-7">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-green-600">
                 Order Summary
+              </p>
+
+              <h2 className="mt-2 text-2xl font-bold text-gray-900">
+                Summary
               </h2>
 
-              <div className="mt-6 space-y-3 text-sm">
-                <div className="flex items-center justify-between text-gray-600">
+              <div className="mt-6 space-y-4">
+                <div className="flex items-center justify-between rounded-2xl bg-green-50/70 px-4 py-3 text-sm text-gray-700">
                   <span>Total Items</span>
-                  <span>{cart.length}</span>
+                  <span className="font-semibold text-gray-900">
+                    {cart.length}
+                  </span>
                 </div>
 
-                <div className="flex items-center justify-between text-gray-600">
+                <div className="flex items-center justify-between rounded-2xl bg-green-50/70 px-4 py-3 text-sm text-gray-700">
                   <span>Delivery</span>
-                  <span>Free</span>
+                  <span className="font-semibold text-emerald-700">Free</span>
                 </div>
 
-                <div className="border-t border-gray-200 pt-3">
-                  <div className="flex items-center justify-between text-lg font-bold text-gray-900">
-                    <span>Total Price</span>
-                    <span>₹{total}</span>
+                <div className="flex items-center justify-between rounded-2xl bg-green-50/70 px-4 py-3 text-sm text-gray-700">
+                  <span>Packaging</span>
+                  <span className="font-semibold text-gray-900">Included</span>
+                </div>
+
+                <div className="border-t border-gray-200 pt-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-base font-semibold text-gray-700">
+                      Total Price
+                    </span>
+                    <span className="text-2xl font-bold text-gray-900">
+                      ₹{total}
+                    </span>
                   </div>
+
+                  <p className="mt-2 text-xs leading-5 text-gray-500">
+                    Taxes and additional charges are included in this demo
+                    summary.
+                  </p>
                 </div>
               </div>
 
-              <button className="hover-lift mt-6 w-full rounded-2xl bg-green-600 py-3 font-medium text-white hover:bg-green-700">
-                Checkout
+              <button className="mt-7 w-full rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 py-3.5 text-sm font-semibold text-white shadow-lg shadow-green-200 transition duration-300 hover:-translate-y-0.5 hover:from-green-700 hover:to-emerald-700">
+                Proceed to Checkout
               </button>
+
+              <Link
+                href="/products"
+                className="mt-4 block w-full rounded-2xl border border-green-200 bg-white py-3 text-center text-sm font-semibold text-green-700 transition hover:bg-green-50"
+              >
+                Continue Shopping
+              </Link>
             </div>
           </div>
         )}

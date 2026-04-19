@@ -24,54 +24,104 @@ function ProductList() {
   }, [search, selectedCategory]);
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-12">
-      <div className="mb-8 text-center">
-        <h2 className="text-2xl font-bold text-gray-800">Featured Products</h2>
-        <p className="mt-2 text-gray-600">
-          Search and filter fresh agro products easily.
-        </p>
-      </div>
+    <section className="relative mx-auto max-w-7xl overflow-hidden px-6 py-14 md:py-20">
+      <div className="absolute -top-12 -left-10 h-40 w-40 rounded-full bg-green-100/50 blur-3xl" />
+      <div className="absolute -bottom-10 right-0 h-40 w-40 rounded-full bg-emerald-100/50 blur-3xl" />
 
-      <div className="glass-card mb-8 rounded-3xl p-4">
-        <div className="flex flex-col gap-4 md:flex-row">
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-2xl border border-white/60 bg-white/70 px-4 py-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
-          />
+      <div className="relative">
+        <div className="mb-10 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-green-600">
+            Fresh Collection
+          </p>
 
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="rounded-2xl border border-white/60 bg-white/70 px-4 py-3 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100 md:min-w-56"
-          >
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 md:text-5xl">
+            Featured Products
+          </h2>
 
-      {filteredProducts.length === 0 ? (
-        <div className="glass-card rounded-3xl p-10 text-center">
-          <h3 className="text-xl font-semibold text-gray-800">
-            No products found
-          </h3>
-          <p className="mt-2 text-gray-600">
-            Try another search or category.
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-gray-600 md:text-base">
+            Discover fresh, healthy, and organic essentials with smart search
+            and category filters.
           </p>
         </div>
-      ) : (
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {filteredProducts.map((item) => (
-            <ProductCard key={item.id} product={item} />
-          ))}
+
+        <div className="mb-10 rounded-[30px] border border-white/60 bg-white/75 p-5 shadow-[0_20px_60px_rgba(15,23,42,0.06)] backdrop-blur-2xl md:p-6">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-1 flex-col gap-4 md:flex-row">
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 pr-12 text-sm text-gray-800 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
+                />
+
+                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+                  🔍
+                </span>
+              </div>
+
+              <div className="relative md:min-w-[240px]">
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="w-full appearance-none rounded-2xl border border-gray-200 bg-white px-4 py-3.5 pr-10 text-sm text-gray-800 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
+                >
+                  {categories.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+
+                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-400">
+                  ▾
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between gap-3 lg:justify-end">
+              <div className="rounded-2xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
+                {filteredProducts.length} product
+                {filteredProducts.length !== 1 ? "s" : ""}
+              </div>
+            </div>
+          </div>
         </div>
-      )}
+
+        {filteredProducts.length === 0 ? (
+          <div className="rounded-[30px] border border-white/60 bg-white/75 p-10 text-center shadow-[0_20px_60px_rgba(15,23,42,0.06)] backdrop-blur-2xl md:p-14">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-[24px] bg-gradient-to-br from-green-100 to-emerald-100 text-4xl">
+              🌿
+            </div>
+
+            <h3 className="mt-6 text-2xl font-bold text-gray-900">
+              No products found
+            </h3>
+
+            <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-gray-600 md:text-base">
+              Try changing the category or searching with a different product
+              name.
+            </p>
+
+            <button
+              onClick={() => {
+                setSearch("");
+                setSelectedCategory("All");
+              }}
+              className="mt-6 rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-green-200 transition duration-300 hover:-translate-y-0.5 hover:from-green-700 hover:to-emerald-700"
+            >
+              Reset Filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {filteredProducts.map((item) => (
+              <ProductCard key={item.id} product={item} />
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }
