@@ -1,7 +1,7 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { useAuth } from "@/components/context/AuthContext";
@@ -13,9 +13,11 @@ export default function AppShell({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isHydrated } = useAuth();
 
   useEffect(() => {
+    if (!isHydrated) return;
+
     if (!isLoggedIn && pathname !== "/login") {
       router.push("/login");
     }
@@ -23,16 +25,20 @@ export default function AppShell({
     if (isLoggedIn && pathname === "/login") {
       router.push("/");
     }
-  }, [isLoggedIn, pathname, router]);
+  }, [isHydrated, isLoggedIn, pathname, router]);
 
-  const isLoginPage = pathname === "/login";
-
-  if (!isLoggedIn && !isLoginPage) {
+  if (!isHydrated) {
     return null;
   }
 
+  const isLoginPage = pathname === "/login";
+
   if (!isLoggedIn && isLoginPage) {
     return <main>{children}</main>;
+  }
+
+  if (!isLoggedIn && !isLoginPage) {
+    return null;
   }
 
   return (

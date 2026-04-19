@@ -3,6 +3,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -16,6 +17,7 @@ type User = {
 type AuthContextType = {
   user: User | null;
   isLoggedIn: boolean;
+  isHydrated: boolean;
   login: (email: string, password: string) => boolean;
   logout: () => void;
 };
@@ -27,16 +29,22 @@ export function AuthProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [user, setUser] = useState<User | null>(() => {
-    if (typeof window === "undefined") return null;
+  const [user, setUser] = useState<User | null>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
 
+  useEffect(() => {
     try {
       const storedUser = localStorage.getItem("agro-user");
-      return storedUser ? JSON.parse(storedUser) : null;
-    } catch {
-      return null;
+
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    } catch (error) {
+      console.error("Failed to read user from localStorage", error);
+    } finally {
+      setIsHydrated(true);
     }
-  });
+  }, []);
 
   const login = (email: string, password: string) => {
     const validEmail = "admin@gmail.com";
@@ -68,6 +76,7 @@ export function AuthProvider({
       value={{
         user,
         isLoggedIn: !!user,
+        isHydrated,
         login,
         logout,
       }}
