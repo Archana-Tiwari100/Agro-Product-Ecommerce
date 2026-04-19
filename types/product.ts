@@ -1,13 +1,30 @@
-export interface Product {
+export type Product = {
   id: number;
-  name: string;
-  category: string;
+
+  name: {
+    en: string;
+    hi: string;
+  };
+
+  category: {
+    en: string;
+    hi: string;
+  };
+
+  description: {
+    en: string;
+    hi: string;
+  };
+
   price: number;
   originalPrice?: number;
-  unit: string;
+  unit: {
+    en: string;
+    hi: string;
+  };
+
   image: string;
   rating: number;
   reviews: number;
-  description: string;
   isAvailable: boolean;
-}
+};

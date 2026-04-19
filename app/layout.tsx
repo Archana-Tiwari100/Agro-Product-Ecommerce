@@ -1,6 +1,7 @@
 import "./globals.css";
 import { CartProvider } from "@/components/context/CartContext";
 import { AuthProvider } from "@/components/context/AuthContext";
+import { LanguageProvider } from "@/components/context/LanguageContext";
 import AppShell from "@/components/layout/AppShell";
 
 export default function RootLayout({
@@ -12,9 +13,11 @@ export default function RootLayout({
     <html lang="en" data-scroll-behavior="smooth">
       <body className="min-h-screen">
         <AuthProvider>
-          <CartProvider>
-            <AppShell>{children}</AppShell>
-          </CartProvider>
+          <LanguageProvider>
+            <CartProvider>
+              <AppShell>{children}</AppShell>
+            </CartProvider>
+          </LanguageProvider>
         </AuthProvider>
       </body>
     </html>

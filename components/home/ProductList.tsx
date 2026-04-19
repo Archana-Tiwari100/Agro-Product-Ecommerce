@@ -3,25 +3,41 @@
 import { useMemo, useState } from "react";
 import ProductCard from "@/components/products/ProductCard";
 import { products } from "@/data/product";
+import { useLanguage } from "@/components/context/LanguageContext";
 
 function ProductList() {
-  const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const { t, language } = useLanguage();
 
-  const categories = ["All", ...new Set(products.map((item) => item.category))];
+  const allLabel = t.products.all;
+
+  const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(allLabel);
+
+  const categories = [
+    allLabel,
+    ...new Set(products.map((item) => item.category[language])),
+  ];
 
   const filteredProducts = useMemo(() => {
     return products.filter((item) => {
-      const matchesCategory =
-        selectedCategory === "All" || item.category === selectedCategory;
+      const productCategory = item.category[language];
+      const productName = item.name[language];
 
-      const matchesSearch = item.name
+      const matchesCategory =
+        selectedCategory === allLabel || productCategory === selectedCategory;
+
+      const matchesSearch = productName
         .toLowerCase()
         .includes(search.toLowerCase());
 
       return matchesCategory && matchesSearch;
     });
-  }, [search, selectedCategory]);
+  }, [search, selectedCategory, language, allLabel]);
+
+  const handleReset = () => {
+    setSearch("");
+    setSelectedCategory(allLabel);
+  };
 
   return (
     <section className="relative mx-auto max-w-7xl overflow-hidden px-6 py-14 md:py-20">
@@ -31,16 +47,15 @@ function ProductList() {
       <div className="relative">
         <div className="mb-10 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-green-600">
-            Fresh Collection
+            {t.products.badge}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 md:text-5xl">
-            Featured Products
+            {t.products.title}
           </h2>
 
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-gray-600 md:text-base">
-            Discover fresh, healthy, and organic essentials with smart search
-            and category filters.
+            {t.products.subtitle}
           </p>
         </div>
 
@@ -50,7 +65,7 @@ function ProductList() {
               <div className="relative w-full">
                 <input
                   type="text"
-                  placeholder="Search products..."
+                  placeholder={t.products.searchPlaceholder}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 pr-12 text-sm text-gray-800 outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100"
@@ -82,8 +97,10 @@ function ProductList() {
 
             <div className="flex items-center justify-between gap-3 lg:justify-end">
               <div className="rounded-2xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
-                {filteredProducts.length} product
-                {filteredProducts.length !== 1 ? "s" : ""}
+                {filteredProducts.length}{" "}
+                {filteredProducts.length !== 1
+                  ? t.products.products
+                  : t.products.product}
               </div>
             </div>
           </div>
@@ -96,22 +113,18 @@ function ProductList() {
             </div>
 
             <h3 className="mt-6 text-2xl font-bold text-gray-900">
-              No products found
+              {t.products.noProducts}
             </h3>
 
             <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-gray-600 md:text-base">
-              Try changing the category or searching with a different product
-              name.
+              {t.products.noProductsSub}
             </p>
 
             <button
-              onClick={() => {
-                setSearch("");
-                setSelectedCategory("All");
-              }}
+              onClick={handleReset}
               className="mt-6 rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-green-200 transition duration-300 hover:-translate-y-0.5 hover:from-green-700 hover:to-emerald-700"
             >
-              Reset Filters
+              {t.products.resetFilters}
             </button>
           </div>
         ) : (

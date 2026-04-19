@@ -3,9 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/components/context/CartContext";
+import { useLanguage } from "@/components/context/LanguageContext";
 
 export default function CartPage() {
   const { cart, removeFromCart } = useCart();
+  const { t, language } = useLanguage();
 
   const total = cart.reduce((sum, item) => sum + item.price, 0);
 
@@ -18,13 +20,13 @@ export default function CartPage() {
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-10 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-green-600">
-            Shopping Cart
+            {t.cart.badge}
           </p>
           <h1 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 md:text-5xl">
-            Your Cart
+            {t.cart.title}
           </h1>
           <p className="mt-3 text-sm leading-6 text-gray-600 md:text-base">
-            Review your selected products before proceeding to checkout.
+            {t.cart.subtitle}
           </p>
         </div>
 
@@ -35,19 +37,18 @@ export default function CartPage() {
             </div>
 
             <h2 className="mt-6 text-2xl font-bold text-gray-900 md:text-3xl">
-              Your cart is empty
+              {t.cart.emptyTitle}
             </h2>
 
             <p className="mt-3 text-sm leading-7 text-gray-600 md:text-base">
-              Start adding fresh and organic products to build your perfect
-              order.
+              {t.cart.emptySub}
             </p>
 
             <Link
               href="/products"
               className="mt-8 inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-green-200 transition duration-300 hover:-translate-y-0.5 hover:from-green-700 hover:to-emerald-700"
             >
-              Browse Products
+              {t.cart.browseProducts}
             </Link>
           </div>
         ) : (
@@ -63,7 +64,7 @@ export default function CartPage() {
                       <div className="relative h-24 w-24 overflow-hidden rounded-[24px] bg-gradient-to-br from-green-50 to-white ring-1 ring-green-100 sm:h-28 sm:w-28">
                         <Image
                           src={item.image}
-                          alt={item.name}
+                          alt={item.name[language]}
                           fill
                           sizes="112px"
                           loading="eager"
@@ -73,15 +74,15 @@ export default function CartPage() {
 
                       <div className="min-w-0">
                         <p className="inline-flex rounded-full bg-green-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-green-700">
-                          {item.category}
+                          {item.category[language]}
                         </p>
 
                         <h2 className="mt-3 text-lg font-bold text-gray-900 sm:text-xl">
-                          {item.name}
+                          {item.name[language]}
                         </h2>
 
                         <p className="mt-2 text-sm text-gray-500">
-                          Fresh quality product for your daily needs
+                          {t.cart.itemSub}
                         </p>
 
                         <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
@@ -89,7 +90,7 @@ export default function CartPage() {
                             ₹{item.price}
                           </span>
                           <span className="rounded-full bg-emerald-50 px-3 py-1 font-medium text-emerald-700">
-                            per {item.unit}
+                            {t.products.per} {item.unit[language]}
                           </span>
                         </div>
                       </div>
@@ -104,7 +105,7 @@ export default function CartPage() {
                         onClick={() => removeFromCart(index)}
                         className="rounded-2xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-100"
                       >
-                        Remove Item
+                        {t.cart.removeItem}
                       </button>
                     </div>
                   </div>
@@ -114,35 +115,39 @@ export default function CartPage() {
 
             <div className="h-fit rounded-[32px] border border-white/60 bg-white/75 p-6 shadow-[0_20px_80px_rgba(15,23,42,0.07)] backdrop-blur-2xl md:p-7">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-green-600">
-                Order Summary
+                {t.cart.orderSummary}
               </p>
 
               <h2 className="mt-2 text-2xl font-bold text-gray-900">
-                Summary
+                {t.cart.summary}
               </h2>
 
               <div className="mt-6 space-y-4">
                 <div className="flex items-center justify-between rounded-2xl bg-green-50/70 px-4 py-3 text-sm text-gray-700">
-                  <span>Total Items</span>
+                  <span>{t.cart.totalItems}</span>
                   <span className="font-semibold text-gray-900">
                     {cart.length}
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between rounded-2xl bg-green-50/70 px-4 py-3 text-sm text-gray-700">
-                  <span>Delivery</span>
-                  <span className="font-semibold text-emerald-700">Free</span>
+                  <span>{t.cart.delivery}</span>
+                  <span className="font-semibold text-emerald-700">
+                    {t.cart.free}
+                  </span>
                 </div>
 
                 <div className="flex items-center justify-between rounded-2xl bg-green-50/70 px-4 py-3 text-sm text-gray-700">
-                  <span>Packaging</span>
-                  <span className="font-semibold text-gray-900">Included</span>
+                  <span>{t.cart.packaging}</span>
+                  <span className="font-semibold text-gray-900">
+                    {t.cart.included}
+                  </span>
                 </div>
 
                 <div className="border-t border-gray-200 pt-4">
                   <div className="flex items-center justify-between">
                     <span className="text-base font-semibold text-gray-700">
-                      Total Price
+                      {t.cart.totalPrice}
                     </span>
                     <span className="text-2xl font-bold text-gray-900">
                       ₹{total}
@@ -150,21 +155,20 @@ export default function CartPage() {
                   </div>
 
                   <p className="mt-2 text-xs leading-5 text-gray-500">
-                    Taxes and additional charges are included in this demo
-                    summary.
+                    {t.cart.taxes}
                   </p>
                 </div>
               </div>
 
               <button className="mt-7 w-full rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 py-3.5 text-sm font-semibold text-white shadow-lg shadow-green-200 transition duration-300 hover:-translate-y-0.5 hover:from-green-700 hover:to-emerald-700">
-                Proceed to Checkout
+                {t.cart.checkout}
               </button>
 
               <Link
                 href="/products"
                 className="mt-4 block w-full rounded-2xl border border-green-200 bg-white py-3 text-center text-sm font-semibold text-green-700 transition hover:bg-green-50"
               >
-                Continue Shopping
+                {t.cart.continueShopping}
               </Link>
             </div>
           </div>

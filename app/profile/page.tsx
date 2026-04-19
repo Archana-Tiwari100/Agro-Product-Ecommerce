@@ -2,10 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/context/AuthContext";
+import { useLanguage } from "@/components/context/LanguageContext";
 
 export default function ProfilePage() {
   const router = useRouter();
   const { user, logout } = useAuth();
+  const { t } = useLanguage();
 
   const handleLogout = () => {
     logout();
@@ -33,13 +35,13 @@ export default function ProfilePage() {
 
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.28em] text-green-100">
-                    My Profile
+                    {t.profile.badge}
                   </p>
                   <h1 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
                     {user.name}
                   </h1>
                   <p className="mt-2 text-sm text-green-50/90">
-                    Welcome back to your Agro account
+                    {t.profile.welcome}
                   </p>
                 </div>
               </div>
@@ -52,22 +54,22 @@ export default function ProfilePage() {
                 <div className="mb-6 flex items-center justify-between">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.22em] text-green-600">
-                      Personal Details
+                      {t.profile.personalDetails}
                     </p>
                     <h2 className="mt-2 text-2xl font-bold text-gray-900">
-                      Account Information
+                      {t.profile.accountInformation}
                     </h2>
                   </div>
 
                   <button className="rounded-xl bg-green-50 px-4 py-2 text-sm font-semibold text-green-700 transition hover:bg-green-100">
-                    Edit Profile
+                    {t.profile.editProfile}
                   </button>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="rounded-2xl border border-gray-100 bg-gradient-to-br from-white to-green-50/40 p-5">
                     <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                      Full Name
+                      {t.profile.fullName}
                     </p>
                     <p className="mt-2 text-base font-semibold text-gray-900">
                       {user.name}
@@ -76,7 +78,7 @@ export default function ProfilePage() {
 
                   <div className="rounded-2xl border border-gray-100 bg-gradient-to-br from-white to-green-50/40 p-5">
                     <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                      Email Address
+                      {t.profile.emailAddress}
                     </p>
                     <p className="mt-2 break-words text-base font-semibold text-gray-900">
                       {user.email}
@@ -85,7 +87,7 @@ export default function ProfilePage() {
 
                   <div className="rounded-2xl border border-gray-100 bg-gradient-to-br from-white to-green-50/40 p-5">
                     <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                      Phone Number
+                      {t.profile.phoneNumber}
                     </p>
                     <p className="mt-2 text-base font-semibold text-gray-900">
                       {user.phone}
@@ -94,7 +96,7 @@ export default function ProfilePage() {
 
                   <div className="rounded-2xl border border-gray-100 bg-gradient-to-br from-white to-green-50/40 p-5">
                     <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                      Address
+                      {t.profile.address}
                     </p>
                     <p className="mt-2 text-base font-semibold text-gray-900">
                       {user.address}
@@ -107,24 +109,23 @@ export default function ProfilePage() {
             <div className="space-y-6">
               <div className="rounded-[28px] border border-gray-100 bg-white/80 p-6 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-green-600">
-                  Account Status
+                  {t.profile.accountStatus}
                 </p>
                 <h3 className="mt-2 text-xl font-bold text-gray-900">
-                  Active Account
+                  {t.profile.activeAccount}
                 </h3>
                 <p className="mt-3 text-sm leading-6 text-gray-500">
-                  Your profile is active and ready to explore fresh agro
-                  products, cart items, and orders.
+                  {t.profile.accountStatusSub}
                 </p>
 
                 <div className="mt-5 inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
-                  Logged In
+                  {t.profile.loggedIn}
                 </div>
               </div>
 
               <div className="rounded-[28px] border border-gray-100 bg-white/80 p-6 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-green-600">
-                  Quick Actions
+                  {t.profile.quickActions}
                 </p>
 
                 <div className="mt-4 space-y-3">
@@ -132,21 +133,21 @@ export default function ProfilePage() {
                     onClick={() => router.push("/")}
                     className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-left text-sm font-medium text-gray-700 transition hover:border-green-200 hover:bg-green-50 hover:text-green-700"
                   >
-                    Go to Home
+                    {t.profile.goToHome}
                   </button>
 
                   <button
                     onClick={() => router.push("/cart")}
                     className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-left text-sm font-medium text-gray-700 transition hover:border-green-200 hover:bg-green-50 hover:text-green-700"
                   >
-                    View Cart
+                    {t.profile.viewCart}
                   </button>
 
                   <button
                     onClick={handleLogout}
                     className="w-full rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-left text-sm font-medium text-red-600 transition hover:bg-red-100"
                   >
-                    Logout from Account
+                    {t.profile.logoutFromAccount}
                   </button>
                 </div>
               </div>

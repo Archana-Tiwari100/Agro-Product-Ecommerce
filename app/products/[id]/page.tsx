@@ -1,17 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { products } from "@/data/product";
 import AddToCartButton from "@/components/products/AddToCartButton";
+import { useLanguage } from "@/components/context/LanguageContext";
 
-interface Props {
-  params: Promise<{
-    id: string;
-  }>;
-}
+export default function ProductDetails() {
+  const params = useParams();
+  const { t, language } = useLanguage();
 
-export default async function ProductDetails({ params }: Props) {
-  const { id } = await params;
-
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
   const product = products.find((item) => item.id === Number(id));
 
   if (!product) {
@@ -22,16 +22,16 @@ export default async function ProductDetails({ params }: Props) {
             ⚠️
           </div>
           <h1 className="mt-6 text-3xl font-bold text-gray-900">
-            Product not found
+            {t.common.productNotFound}
           </h1>
           <p className="mt-3 text-sm leading-7 text-gray-600">
-            The product you are looking for does not exist or may have been removed.
+            {t.common.productNotFoundSub}
           </p>
           <Link
             href="/products"
             className="mt-6 inline-flex rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-green-200 transition duration-300 hover:-translate-y-0.5 hover:from-green-700 hover:to-emerald-700"
           >
-            Back to Products
+            {t.common.backToProducts}
           </Link>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default async function ProductDetails({ params }: Props) {
             href="/products"
             className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-sm font-medium text-green-700 shadow-sm transition hover:bg-green-50"
           >
-            ← Back to Products
+            ← {t.common.backToProducts}
           </Link>
         </div>
 
@@ -68,7 +68,7 @@ export default async function ProductDetails({ params }: Props) {
             <div className="relative h-[360px] w-full overflow-hidden rounded-[28px] bg-gradient-to-br from-green-50 via-white to-emerald-50 md:h-[500px]">
               <Image
                 src={product.image}
-                alt={product.name}
+                alt={product.name[language]}
                 fill
                 loading="eager"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -77,12 +77,12 @@ export default async function ProductDetails({ params }: Props) {
 
               <div className="absolute left-4 top-4 flex flex-wrap items-center gap-2">
                 <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-green-700 shadow-sm">
-                  {product.category}
+                  {product.category[language]}
                 </span>
 
                 {hasDiscount && (
                   <span className="rounded-full bg-gradient-to-r from-green-600 to-emerald-600 px-3 py-1 text-[11px] font-semibold text-white shadow-sm">
-                    {discountPercentage}% Off
+                    {discountPercentage}% {t.products.off}
                   </span>
                 )}
               </div>
@@ -91,34 +91,34 @@ export default async function ProductDetails({ params }: Props) {
 
           <div className="rounded-[34px] border border-white/60 bg-white/75 p-6 shadow-[0_20px_80px_rgba(15,23,42,0.07)] backdrop-blur-2xl md:p-8">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-green-600">
-              Premium Agro Product
+              {t.common.premiumAgroProduct}
             </p>
 
             <h1 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">
-              {product.name}
+              {product.name[language]}
             </h1>
 
             <p className="mt-5 text-sm leading-7 text-gray-600 md:text-base">
-              {product.description}
+              {product.description[language]}
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <span className="rounded-full bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-700">
-                ⭐ {product.rating} Rating
+                ⭐ {product.rating} {t.common.rating}
               </span>
 
               <span className="rounded-full bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700">
-                {product.reviews} Reviews
+                {product.reviews} {t.products.reviews}
               </span>
 
               <span className="rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
-                Per {product.unit}
+                {t.products.per} {product.unit[language]}
               </span>
             </div>
 
             <div className="mt-8 rounded-[28px] bg-gradient-to-r from-green-50 to-emerald-50 p-5">
               <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                Price
+                {t.common.price}
               </p>
 
               <div className="mt-3 flex items-end gap-3">
@@ -127,7 +127,7 @@ export default async function ProductDetails({ params }: Props) {
                 </span>
 
                 <span className="pb-1 text-sm font-medium text-gray-500">
-                  / {product.unit}
+                  / {product.unit[language]}
                 </span>
 
                 {hasDiscount && (
@@ -141,23 +141,25 @@ export default async function ProductDetails({ params }: Props) {
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-gray-100 bg-white/80 p-4">
                 <p className="text-xs uppercase tracking-wide text-gray-500">
-                  Availability
+                  {t.common.availability}
                 </p>
                 <p
                   className={`mt-2 text-base font-semibold ${
                     product.isAvailable ? "text-green-600" : "text-red-600"
                   }`}
                 >
-                  {product.isAvailable ? "In Stock" : "Out of Stock"}
+                  {product.isAvailable
+                    ? t.common.inStock
+                    : t.common.outOfStock}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-gray-100 bg-white/80 p-4">
                 <p className="text-xs uppercase tracking-wide text-gray-500">
-                  Category
+                  {t.common.category}
                 </p>
                 <p className="mt-2 text-base font-semibold text-gray-900">
-                  {product.category}
+                  {product.category[language]}
                 </p>
               </div>
             </div>
@@ -168,13 +170,13 @@ export default async function ProductDetails({ params }: Props) {
 
             <div className="mt-8 rounded-[28px] border border-green-100 bg-green-50/70 p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-green-700">
-                Why choose this product
+                {t.common.whyChoose}
               </p>
 
               <ul className="mt-4 space-y-3 text-sm leading-6 text-gray-600">
-                <li>• Fresh quality selected for everyday use</li>
-                <li>• Clean, healthy, and premium shopping experience</li>
-                <li>• Ideal for regular kitchen and family needs</li>
+                <li>• {t.common.reason1}</li>
+                <li>• {t.common.reason2}</li>
+                <li>• {t.common.reason3}</li>
               </ul>
             </div>
           </div>
