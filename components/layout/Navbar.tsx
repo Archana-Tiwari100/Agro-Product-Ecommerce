@@ -35,7 +35,7 @@ function Navbar() {
   };
 
   const firstName = user?.name?.split(" ")[0] || t.nav.profile;
-  const cartCount = cart.length;
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const navItems = [
     { href: "/", label: t.nav.home },

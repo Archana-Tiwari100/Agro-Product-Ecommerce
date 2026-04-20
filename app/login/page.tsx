@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/context/AuthContext";
@@ -120,21 +121,9 @@ export default function LoginPage() {
                   stroke="currentColor"
                   strokeWidth={2}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3 3l18 18"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M10.584 10.587a2 2 0 102.829 2.829"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9.88 5.09A10.94 10.94 0 0112 5c5 0 9.27 3.11 11 7-1.01 2.27-2.77 4.2-5 5.4M6.61 6.61C4.38 7.84 2.62 9.76 1.62 12c.69 1.56 1.73 2.98 3.02 4.14"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l18 18" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.584 10.587a2 2 0 102.829 2.829" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.88 5.09A10.94 10.94 0 0112 5c5 0 9.27 3.11 11 7-1.01 2.27-2.77 4.2-5 5.4M6.61 6.61C4.38 7.84 2.62 9.76 1.62 12c.69 1.56 1.73 2.98 3.02 4.14" />
                 </svg>
               ) : (
                 <svg
@@ -145,11 +134,7 @@ export default function LoginPage() {
                   stroke="currentColor"
                   strokeWidth={2}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M1.5 12S5.5 4.5 12 4.5 22.5 12 22.5 12 18.5 19.5 12 19.5 1.5 12 1.5 12z"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M1.5 12S5.5 4.5 12 4.5 22.5 12 22.5 12 18.5 19.5 12 19.5 1.5 12 1.5 12z" />
                   <circle cx="12" cy="12" r="3" />
                 </svg>
               )}
@@ -169,9 +154,11 @@ export default function LoginPage() {
             Login
           </button>
 
-          <div className="rounded-2xl border border-green-100 bg-green-50/80 px-4 py-3 text-center text-xs leading-6 text-gray-600">
-            <span className="font-semibold text-green-700">Demo Login:</span>{" "}
-            admin@gmail.com / admin123
+          <div className="text-center text-sm text-gray-600">
+            Don&apos;t have an account?{" "}
+            <Link href="/signup" className="font-semibold text-green-700 hover:underline">
+              Sign up here
+            </Link>
           </div>
         </form>
       </div>

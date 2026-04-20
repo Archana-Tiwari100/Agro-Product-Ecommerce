@@ -1,5 +1,48 @@
 export const translations = {
   en: {
+    checkout: {
+      badge: "Checkout",
+      title: "Complete Your Order",
+      subtitle: "Enter your delivery details and choose a payment method.",
+
+      emptyTitle: "Your cart is empty",
+      emptySub: "Add products to your cart before proceeding to checkout.",
+      browseProducts: "Browse Products",
+
+      deliveryDetails: "Delivery Details",
+      fullName: "Full Name",
+      fullNamePlaceholder: "Enter full name",
+      phone: "Phone Number",
+      phonePlaceholder: "Enter phone number",
+      address: "Address",
+      addressPlaceholder: "Enter delivery address",
+      city: "City",
+      cityPlaceholder: "Enter city",
+      pincode: "Pincode",
+      pincodePlaceholder: "Enter pincode",
+
+      paymentMethod: "Payment Method",
+      upi: "UPI",
+      upiSub: "Google Pay, PhonePe, Paytm",
+      card: "Card",
+      cardSub: "Credit / Debit Card",
+      cod: "Cash on Delivery",
+      codSub: "Pay at your doorstep",
+
+      orderSummary: "Order Summary",
+      summary: "Summary",
+      totalItems: "Total Items",
+      delivery: "Delivery",
+      free: "Free",
+      totalPrice: "Total Price",
+      placeOrder: "Place Order",
+
+      fullNameRequired: "Full name is required",
+      phoneInvalid: "Enter valid 10-digit phone number",
+      addressRequired: "Address is required",
+      cityRequired: "City is required",
+      pincodeInvalid: "Enter valid 6-digit pincode",
+    },
     nav: {
       home: "Home",
       products: "Products",
@@ -134,7 +177,6 @@ export const translations = {
       viewCart: "View Cart",
       logoutFromAccount: "Logout from Account",
     },
-
     footer: {
       subtitle: "Fresh and organic essentials for everyday life.",
       about: "About",
@@ -144,8 +186,50 @@ export const translations = {
     },
 
   },
-
   hi: {
+    checkout: {
+      badge: "चेकआउट",
+      title: "अपना ऑर्डर पूरा करें",
+      subtitle: "अपनी डिलीवरी जानकारी भरें और पेमेंट मेथड चुनें।",
+
+      emptyTitle: "आपका कार्ट खाली है",
+      emptySub: "चेकआउट से पहले अपने कार्ट में प्रोडक्ट्स जोड़ें।",
+      browseProducts: "प्रोडक्ट्स देखें",
+
+      deliveryDetails: "डिलीवरी जानकारी",
+      fullName: "पूरा नाम",
+      fullNamePlaceholder: "पूरा नाम दर्ज करें",
+      phone: "फोन नंबर",
+      phonePlaceholder: "फोन नंबर दर्ज करें",
+      address: "पता",
+      addressPlaceholder: "डिलीवरी पता दर्ज करें",
+      city: "शहर",
+      cityPlaceholder: "शहर दर्ज करें",
+      pincode: "पिनकोड",
+      pincodePlaceholder: "पिनकोड दर्ज करें",
+
+      paymentMethod: "पेमेंट मेथड",
+      upi: "यूपीआई",
+      upiSub: "गूगल पे, फोनपे, पेटीएम",
+      card: "कार्ड",
+      cardSub: "क्रेडिट / डेबिट कार्ड",
+      cod: "कैश ऑन डिलीवरी",
+      codSub: "डिलीवरी पर भुगतान करें",
+
+      orderSummary: "ऑर्डर सारांश",
+      summary: "सारांश",
+      totalItems: "कुल आइटम",
+      delivery: "डिलीवरी",
+      free: "फ्री",
+      totalPrice: "कुल कीमत",
+      placeOrder: "ऑर्डर करें",
+
+      fullNameRequired: "पूरा नाम जरूरी है",
+      phoneInvalid: "सही 10 अंकों का फोन नंबर दर्ज करें",
+      addressRequired: "पता जरूरी है",
+      cityRequired: "शहर जरूरी है",
+      pincodeInvalid: "सही 6 अंकों का पिनकोड दर्ज करें",
+    },
     nav: {
       home: "होम",
       products: "प्रोडक्ट्स",
@@ -280,7 +364,6 @@ export const translations = {
       viewCart: "कार्ट देखें",
       logoutFromAccount: "अकाउंट से लॉगआउट करें",
     },
-
     footer: {
       subtitle: "रोज़मर्रा की ज़िंदगी के लिए ताज़ी और ऑर्गेनिक ज़रूरतें।",
       about: "हमारे बारे में",
