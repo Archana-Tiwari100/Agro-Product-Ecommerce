@@ -6,7 +6,7 @@ Agro is a modern **e-commerce frontend application** built with **Next.js, React
 
 ## 🚀 Live Demo
 
-👉 https://your-vercel-link.vercel.app/
+👉[Agro](https://agro-product-ecommerce.vercel.app/)
 
 ---
 
@@ -71,52 +71,6 @@ Agro is a modern **e-commerce frontend application** built with **Next.js, React
 - Smooth transitions & hover effects
 
 ---
-
-## 🛠️ Tech Stack
-
-- **Framework:** :contentReference[oaicite:0]{index=0}
-- **Frontend:** :contentReference[oaicite:1]{index=1}
-- **Language:** :contentReference[oaicite:2]{index=2}
-- **Styling:** :contentReference[oaicite:3]{index=3}
-- **State Management:** React Context API
-- **Storage:** localStorage
-
----
-
-## 📁 Project Structure
-  ## 📁 Project Structure
-
-
-/app
-/cart
-/checkout
-/login
-/signup
-/profile
-/products
-/[id]
-
-/components
-/context
-/home
-/products
-/layout
-
-/data
-/types
-
-
-
----
-
-## ⚙️ Installation & Setup
-
-```bash
-git clone https://github.com/your-username/agro-ecommerce.git
-cd agro-ecommerce
-npm install
-npm run dev
-
 
 👩‍💻 Author
 
