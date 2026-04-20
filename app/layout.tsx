@@ -4,6 +4,11 @@ import { AuthProvider } from "@/components/context/AuthContext";
 import { LanguageProvider } from "@/components/context/LanguageContext";
 import AppShell from "@/components/layout/AppShell";
 
+export const metadata = {
+  title: "Agro - Fresh Organic Store",
+  description: "Fresh and organic agro products",
+};
+
 export default function RootLayout({
   children,
 }: {
