@@ -132,3 +132,29 @@ input {
 .animate-shake {
   animation: shake 0.45s ease-in-out;
 }
+@keyframes agroBurst {
+  0% {
+    transform: translate(-50%, -50%) translate(0, 0) scale(0.2) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform:
+      translate(-50%, -50%)
+      translate(var(--burst-x), var(--burst-y))
+      rotate(var(--burst-rotate))
+      scale(1.15);
+    opacity: 0;
+  }
+}
+
+.animate-agro-burst {
+  animation-name: agroBurst;
+  animation-timing-function: cubic-bezier(0.18, 0.7, 0.2, 1);
+  animation-fill-mode: forwards;
+}

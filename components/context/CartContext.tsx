@@ -3,15 +3,20 @@
 import { createContext, useContext, useState } from "react";
 import { Product } from "@/types/product";
 
-interface CartContextType {
+type CartContextType = {
   cart: Product[];
   addToCart: (product: Product) => void;
   removeFromCart: (index: number) => void;
-}
+  clearCart: () => void;
+};
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export function CartProvider({ children }: { children: React.ReactNode }) {
+export function CartProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [cart, setCart] = useState<Product[]>([]);
 
   const addToCart = (product: Product) => {
@@ -19,11 +24,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const removeFromCart = (index: number) => {
-    setCart((prev) => prev.filter((_, itemIndex) => itemIndex !== index));
+    setCart((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const clearCart = () => {
+    setCart([]);
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        clearCart,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

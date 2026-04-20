@@ -160,9 +160,12 @@ export default function CartPage() {
                 </div>
               </div>
 
-              <button className="mt-7 w-full rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 py-3.5 text-sm font-semibold text-white shadow-lg shadow-green-200 transition duration-300 hover:-translate-y-0.5 hover:from-green-700 hover:to-emerald-700">
+              <Link
+                href="/checkout"
+                className="mt-7 block w-full rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 py-3.5 text-center text-sm font-semibold text-white shadow-lg shadow-green-200 transition duration-300 hover:-translate-y-0.5 hover:from-green-700 hover:to-emerald-700"
+              >
                 {t.cart.checkout}
-              </button>
+              </Link>
 
               <Link
                 href="/products"
